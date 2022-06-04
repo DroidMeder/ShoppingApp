@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ShoppingApp</string>
+    <string name="getlist">GetList</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="get_selected">Get Slected</string>
+    <string name="enter_something">Enter something</string>
+    <string name="get_item">Get Item</string>
+</resources>
