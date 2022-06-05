@@ -12,6 +12,12 @@ data class ShopItem(
         const val ENABLE = false
     }
 
+
+
+    fun syncId(int: Int){
+        UNDEFINED_ID = int
+    }
+
     init {
         UNDEFINED_ID++
     }

@@ -29,14 +29,15 @@ class ShopListRepositoryImpl: ShopListRepository {
 
     private fun removeIt(item: ShopItem) {
         shopList.remove(item)
-        updateItemsId()
+        updateItemsId(item)
     }
 
-    private fun updateItemsId() {
+    private fun updateItemsId(item: ShopItem) {
         for ((index, element) in shopList.withIndex()){
             val (name, count, enable) = element
             shopList[index] = ShopItem(name, count, enable, index)
         }
+        item.syncId(shopList.size)
     }
 
     override fun editShopItem(shopItem: ShopItem) {
