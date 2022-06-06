@@ -51,6 +51,8 @@ class ShopListRepositoryImpl: ShopListRepository {
         }
         if (!isItemExists){
             show("There's no shopItem like this one. Please check it, and try again")
+        } else {
+            shopItem.syncId(shopList.size)
         }
     }
 
@@ -58,6 +60,7 @@ class ShopListRepositoryImpl: ShopListRepository {
         val shopItem = ShopItem("Item is not found!!!", 0, false, 0)
         for (item in shopList){
             if (item.id == shopItemId){
+                item.syncId(shopList.size)
                 return item
             }
         }
