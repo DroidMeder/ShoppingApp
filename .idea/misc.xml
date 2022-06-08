@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Geek/ShoppingApp/app/src/main/res/layout/activity_main.xml" value="0.2234375" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Geek/ShoppingApp/app/src/main/res/layout/activity_second.xml" value="0.2234375" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Geek/ShoppingApp/app/src/main/res/layout/to_do.xml" value="0.167578125" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Geek/ShoppingApp/app/src/main/res/layout/to_done.xml" value="0.2234375" />
       </map>
     </option>
   </component>

@@ -1,4 +1,4 @@
-package kg.geekteck.shoppingapp.presentation
+package kg.geekteck.shoppingapp.presentation.main
 
 import androidx.lifecycle.ViewModel
 import kg.geekteck.shoppingapp.data.ShopListRepositoryImpl
@@ -12,7 +12,6 @@ class MainViewModel: ViewModel() {
     private val addShopItemUseCase = AddShopItemUseCase(repository)
     private val editShopItemUseCase = EditShopItemUseCase(repository)
     private val deleteShopItemUseCase = DeleteShopItemUseCase(repository)
-    private val getShopItemUseCase = GetShopItemUseCase(repository)
     private val getShopListUseCase = GetShopListUseCase(repository)
 
     fun addShopItem(shopItem: ShopItem){
@@ -20,15 +19,13 @@ class MainViewModel: ViewModel() {
     }
 
     fun editShopItem(shopItem: ShopItem){
-        editShopItemUseCase.editShopItem(shopItem)
+        val newItem = shopItem.copy(enable = !shopItem.enable)
+        editShopItemUseCase.editShopItem(newItem)
     }
 
     fun deleteShopItem(shopItem: ShopItem){
         deleteShopItemUseCase.deleteShopItem(shopItem)
     }
-
-    fun getShopItem(shopItemId: String) = getShopItemUseCase.getShopItem(shopItemId.toInt())
-
 
     fun getShopList() = getShopListUseCase.getShopList()
 
