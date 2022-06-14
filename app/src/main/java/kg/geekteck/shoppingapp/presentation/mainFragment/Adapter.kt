@@ -1,8 +1,9 @@
-package kg.geekteck.shoppingapp.presentation.secondactivity
+package kg.geekteck.shoppingapp.presentation.mainFragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import kg.geekteck.shoppingapp.R
@@ -10,9 +11,30 @@ import kg.geekteck.shoppingapp.databinding.ToDoBinding
 import kg.geekteck.shoppingapp.databinding.ToDoneBinding
 import kg.geekteck.shoppingapp.domain.entity.ShopItem
 
-class Adapter(private var list: List<ShopItem>)  : RecyclerView.Adapter<Adapter.ItemHolder>(){
+class Adapter : RecyclerView.Adapter<Adapter.ItemHolder>() {
+    var onItemClick: ((ShopItem) -> Unit)? = null
+    var onItemLongClick: ((ShopItem) -> Unit)?= null
 
-    inner class ItemHolder(private val binding: ViewBinding) : RecyclerView.ViewHolder(binding.root){
+    var list: List<ShopItem> = arrayListOf()
+        set(value) {
+            val callback = ShopListDiffCallback(list, value)
+            val diffResult = DiffUtil.calculateDiff(callback)
+            diffResult.dispatchUpdatesTo(this)
+            field = value
+        }
+
+    inner class ItemHolder(private val binding: ViewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        init {
+            itemView.setOnClickListener{
+                onItemClick?.invoke(list[absoluteAdapterPosition])
+            }
+            itemView.setOnLongClickListener {
+                onItemLongClick?.invoke(list[absoluteAdapterPosition])
+                return@setOnLongClickListener true
+            }
+
+        }
         fun bind(shopItem: ShopItem) {
             binding.root.findViewById<TextView>(R.id.tv_name).text = shopItem.name
             binding.root.findViewById<TextView>(R.id.tv_count).text = shopItem.count.toString()

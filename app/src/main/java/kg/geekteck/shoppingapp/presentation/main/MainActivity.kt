@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             btnAdd.setOnClickListener {
                 viewModel.addShopItem(
                     ShopItem(
-                        "potato",
+                        etField.text.toString(),
                         2,
                         false
                     )
@@ -54,6 +54,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             }
 
             btn.setOnClickListener {
+                viewModel.getShopList().observe(this@MainActivity){
+                    println(it.toString())
+                }
                 show("initListeners: ${viewModel.getShopList()}")
             }
         }
