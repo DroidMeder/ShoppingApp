@@ -7,6 +7,10 @@ import kg.geekteck.shoppingapp.domain.usecases.AddShopItemUseCase
 import kg.geekteck.shoppingapp.domain.usecases.DeleteShopItemUseCase
 import kg.geekteck.shoppingapp.domain.usecases.EditShopItemUseCase
 import kg.geekteck.shoppingapp.domain.usecases.GetShopListUseCase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 class MainFragmentViewModel : ViewModel() {
     private val repository = ShopListRepositoryImpl()
@@ -16,27 +20,41 @@ class MainFragmentViewModel : ViewModel() {
     private val deleteShopItemUseCase = DeleteShopItemUseCase(repository)
     private val editShopItemUseCase = EditShopItemUseCase(repository)
 
+    private val scope = CoroutineScope(Dispatchers.Default)
 
     fun getShopList() = getShopListUseCase.getShopList()
 
     fun addShopItem(shopItem: ShopItem){
-        addShopItemUseCase.addShopItem(shopItem)
+        scope.launch {
+            addShopItemUseCase.addShopItem(shopItem)
+        }
     }
 
     fun editShopItem(shopItem: ShopItem){
-        val newItem = shopItem.copy(enable = !shopItem.enable)
-        editShopItemUseCase.editShopItem(newItem)
+        scope.launch {
+            val newItem = shopItem.copy(enable = !shopItem.enable)
+            editShopItemUseCase.editShopItem(newItem)
+        }
     }
 
     fun editShopItemCompletely(shopItem: ShopItem){
-        val newShopItem = ShopItem(
-            shopItem.name,
-            shopItem.count,
-            shopItem.enable,
-            shopItem.id
-        )
-        editShopItemUseCase.editShopItem(newShopItem)
+        scope.launch {
+            val newShopItem = ShopItem(
+                shopItem.name,
+                shopItem.count,
+                shopItem.enable,
+                shopItem.id
+            )
+            editShopItemUseCase.editShopItem(newShopItem)
+        }
     }
 
-    fun deleteShopItem(shopItem: ShopItem) = deleteShopItemUseCase.deleteShopItem(shopItem)
+    fun deleteShopItem(shopItem: ShopItem) = scope.launch {
+        deleteShopItemUseCase.deleteShopItem(shopItem)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        scope.cancel()
+    }
 }

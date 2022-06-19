@@ -4,6 +4,10 @@ import androidx.lifecycle.ViewModel
 import kg.geekteck.shoppingapp.data.ShopListRepositoryImpl
 import kg.geekteck.shoppingapp.domain.entity.ShopItem
 import kg.geekteck.shoppingapp.domain.usecases.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 class MainViewModel: ViewModel() {
 
@@ -14,19 +18,31 @@ class MainViewModel: ViewModel() {
     private val deleteShopItemUseCase = DeleteShopItemUseCase(repository)
     private val getShopListUseCase = GetShopListUseCase(repository)
 
+    private val scope = CoroutineScope(Dispatchers.Default)
+
     fun addShopItem(shopItem: ShopItem){
-        addShopItemUseCase.addShopItem(shopItem)
+        scope.launch {
+            addShopItemUseCase.addShopItem(shopItem)
+        }
     }
 
     fun editShopItem(shopItem: ShopItem){
-        val newItem = shopItem.copy(enable = !shopItem.enable)
-        editShopItemUseCase.editShopItem(newItem)
+        scope.launch {
+            val newItem = shopItem.copy(enable = !shopItem.enable)
+            editShopItemUseCase.editShopItem(newItem)
+        }
     }
 
     fun deleteShopItem(shopItem: ShopItem){
-        deleteShopItemUseCase.deleteShopItem(shopItem)
+        scope.launch {
+            deleteShopItemUseCase.deleteShopItem(shopItem)
+        }
     }
 
     fun getShopList() = getShopListUseCase.getShopList()
 
+    override fun onCleared() {
+        super.onCleared()
+        scope.cancel()
+    }
 }
