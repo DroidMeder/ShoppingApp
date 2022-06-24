@@ -9,11 +9,13 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekteck.shoppingapp.R
 import kg.geekteck.shoppingapp.databinding.FragmentEditBinding
 import kg.geekteck.shoppingapp.domain.entity.ShopItem
 import kotlin.random.Random
 
+@AndroidEntryPoint
 class EditFragment : Fragment(R.layout.fragment_edit) {
     private val binding: FragmentEditBinding by viewBinding(CreateMethod.INFLATE)
     private lateinit var navController: NavController

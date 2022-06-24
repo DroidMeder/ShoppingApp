@@ -9,10 +9,12 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekteck.shoppingapp.R
 import kg.geekteck.shoppingapp.databinding.FragmentDetailBinding
 import kg.geekteck.shoppingapp.domain.entity.ShopItem
 
+@AndroidEntryPoint
 class DetailFragment : Fragment(R.layout.fragment_detail) {
     private val binding: FragmentDetailBinding by viewBinding(CreateMethod.INFLATE)
     private lateinit var args: DetailFragmentArgs

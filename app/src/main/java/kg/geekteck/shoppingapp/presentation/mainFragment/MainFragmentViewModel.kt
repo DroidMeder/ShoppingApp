@@ -1,6 +1,7 @@
 package kg.geekteck.shoppingapp.presentation.mainFragment
 
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kg.geekteck.shoppingapp.data.ShopListRepositoryImpl
 import kg.geekteck.shoppingapp.domain.entity.ShopItem
 import kg.geekteck.shoppingapp.domain.usecases.AddShopItemUseCase
@@ -12,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
+@HiltViewModel
 class MainFragmentViewModel : ViewModel() {
     private val repository = ShopListRepositoryImpl()
 

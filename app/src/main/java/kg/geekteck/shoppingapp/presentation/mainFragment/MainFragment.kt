@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekteck.shoppingapp.R
 import kg.geekteck.shoppingapp.databinding.FragmentMainBinding
 import kg.geekteck.shoppingapp.domain.entity.ShopItem
 
+@AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val binding: FragmentMainBinding by viewBinding(CreateMethod.INFLATE)
